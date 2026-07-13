@@ -11,7 +11,7 @@ export const getAuthorHost = () => {
     if (searchParams.has("authorHost")) {
         return searchParams.get("authorHost");
     } else {
-        return process.env.REACT_APP_DEFAULT_HOST;
+        return process.env.REACT_APP_AUTHOR_HOST || "https://author-poc-aem-headless.adobeaemcloud.com";
     }
 }
 
