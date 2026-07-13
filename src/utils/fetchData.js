@@ -2,7 +2,7 @@ import { getSearchParamsForHashRouting } from "./commons";
 
 export const fetchData = async (path) => {
     const url = `${getAuthorHost()}/${path.split(":/")[1]}.infinity.json`;
-    const data = await fetch(url, {headers: {"X-Aem-Affinity-Type": "api"}, credentials: "include"});
+    const data = await fetch(url, { headers: { "X-Aem-Affinity-Type": "api" }, credentials: "include" });
     const json = await data.json();
     return json;
 };
@@ -11,7 +11,7 @@ export const getAuthorHost = () => {
     if (searchParams.has("authorHost")) {
         return searchParams.get("authorHost");
     } else {
-        return "https://author-p7452-e12433.adobeaemcloud.com";
+        return "https://author-p9606-e71941.adobeaemcloud.com";
     }
 }
 
@@ -20,14 +20,14 @@ export const getImageURL = (obj) => {
         return undefined;
     }
 
-    if (typeof obj  === "string") {
+    if (typeof obj === "string") {
         if (obj.startsWith("https://")) {
             return obj;
         }
         return `${getAuthorHost()}${obj}`;
     }
 
-	if (obj._authorUrl !== undefined) {
+    if (obj._authorUrl !== undefined) {
         return obj._authorUrl;
     }
 
@@ -37,8 +37,8 @@ export const getImageURL = (obj) => {
 
     if (obj._path !== undefined) {
         return `${getAuthorHost()}${obj._path}`;
-    }       
-    
+    }
+
     return undefined;
 }
 
