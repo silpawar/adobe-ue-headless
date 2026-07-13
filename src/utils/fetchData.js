@@ -11,7 +11,7 @@ export const getAuthorHost = () => {
     if (searchParams.has("authorHost")) {
         return searchParams.get("authorHost");
     } else {
-        return "https://author-p9606-e71941.adobeaemcloud.com";
+        return process.env.REACT_APP_DEFAULT_HOST;
     }
 }
 
