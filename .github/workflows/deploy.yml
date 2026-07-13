@@ -30,7 +30,7 @@ jobs:
           cache: 'npm'
 
       - name: Install dependencies
-        run: npm i -f
+        run: npm ci -f
 
       - name: Build project
         run: npm run build # Ensure this creates a build/ or dist/ folder
