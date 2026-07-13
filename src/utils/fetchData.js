@@ -1,5 +1,16 @@
 import { getSearchParamsForHashRouting } from "./commons";
 
+const DEFAULT_AUTHOR_HOST = "https://author-p9606-e71941.adobeaemcloud.com/";
+
+const getAuthorHostFromEnv = () => {
+    return (
+        import.meta.env.VITE_AUTHOR_HOST ||
+        import.meta.env.VITE_REACT_APP_DEFAULT_HOST ||
+        import.meta.env.VITE_REACT_APP_AUTHOR_HOST ||
+        DEFAULT_AUTHOR_HOST
+    );
+};
+
 export const fetchData = async (path) => {
     const url = `${getAuthorHost()}/${path.split(":/")[1]}.infinity.json`;
     const data = await fetch(url, { headers: { "X-Aem-Affinity-Type": "api" }, credentials: "include" });
@@ -11,7 +22,7 @@ export const getAuthorHost = () => {
     if (searchParams.has("authorHost")) {
         return searchParams.get("authorHost");
     } else {
-        return process.env.REACT_APP_AUTHOR_HOST || "https://author-poc-aem-headless.adobeaemcloud.com";
+        return getAuthorHostFromEnv();
     }
 }
 
