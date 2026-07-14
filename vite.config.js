@@ -12,6 +12,7 @@ export default defineConfig(({ command, mode }) => {
     server: {
       https: true,
       port: 3000,
+      strictPort: true,
     }
   }
 })

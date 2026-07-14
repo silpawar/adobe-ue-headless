@@ -13,8 +13,15 @@ const getAuthorHostFromEnv = () => {
 
 export const fetchData = async (path) => {
     const url = `${getAuthorHost()}/${path.split(":/")[1]}.infinity.json`;
-    const data = await fetch(url, { headers: { "X-Aem-Affinity-Type": "api" }, credentials: "include" });
-    const json = await data.json();
+    const data = await fetch(url, { credentials: "include" });
+    const contentType = data.headers.get("content-type") || "";
+    const responseText = await data.text();
+
+    if (!contentType.includes("application/json")) {
+        throw new Error(`Expected JSON response from ${url} but received ${contentType || "unknown content type"}. Check AEM login/CORS/redirect.`);
+    }
+
+    const json = JSON.parse(responseText);
     return json;
 };
 export const getAuthorHost = () => {
