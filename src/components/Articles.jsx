@@ -54,11 +54,7 @@ const Article = ({ _path, title, synopsis, authorFragment, slug }) => {
 const Articles = () => {
   const persistentQuery = 'wknd-shared/articles-all';
   const formHeadingQuery = 'wknd-shared/form-heading-by-path;path=/content/dam/wknd-shared/form-heading';
-  const formHeadingEditorProps = {
-    "data-aue-resource": "urn:aemconnection:/content/dam/wknd-shared/form-heading/jcr:content/data/master",
-    "data-aue-type": "reference",
-    "data-aue-filter": "cf"
-  };
+  const formHeadingResource = "urn:aemconnection:/content/dam/wknd-shared/form-heading/jcr:content/data/master";
 
   //Use a custom React Hook to execute the GraphQL query
   const { data, errorMessage } = useGraphQL(persistentQuery);
@@ -78,10 +74,22 @@ const Articles = () => {
 
   return (
     <section className="articles">
-      <div {...formHeadingEditorProps}>
-        <h2 data-aue-prop="storeName" data-aue-type="text">{formHeading.storeName}</h2>
+      <div>
+        <h2
+          data-aue-resource={formHeadingResource}
+          data-aue-type="text"
+          data-aue-prop="storeName"
+          data-aue-filter="cf"
+        >
+          {formHeading.storeName}
+        </h2>
         {formHeading.storeDescription?.json && (
-          <div data-aue-prop="storeDescription" data-aue-type="richtext">
+          <div
+            data-aue-resource={formHeadingResource}
+            data-aue-prop="storeDescription"
+            data-aue-type="richtext"
+            data-aue-filter="cf"
+          >
             {mapJsonRichText(formHeading.storeDescription.json)}
           </div>
         )}
